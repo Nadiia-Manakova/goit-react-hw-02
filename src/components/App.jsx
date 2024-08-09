@@ -18,6 +18,11 @@ export class App extends Component {
     }));
   };
 
+  handleReset = option => {
+    const total = this.countTotalFeedback();
+   
+  }
+
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     const sum = good + neutral + bad;
@@ -31,18 +36,19 @@ export class App extends Component {
   };
 
   render() {
-    const { good, neutral, bad } = this.state;
+    const { good, neutral, bad, reset } = this.state;
 
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
-    const options = ['good', 'neutral', 'bad'];
+    const options = ['good', 'neutral', 'bad', 'reset'];
 
     return (
       <div>
         <Description title="Sip Happens Café">
           <p > Please leave your feedback about our service by selecting one of the options below. </p>
         </Description>
+
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={options}
