@@ -1,0 +1,18 @@
+.list {
+  display: flex;
+  gap: 30px;
+}
+.btn {
+  background-color: #e8eaec;
+  border: none;
+  box-shadow: 5px 5px 15px 0px rgba(13, 39, 80, 0.16), -5px -5px 15px 0px #fff;
+  border-radius: 10%;
+  padding: 20px 40px;
+  color: grey;
+  font-size: 20px;
+}
+
+.btn:hover {
+  box-shadow: -5px -5px 15px 0px rgba(255, 255, 255, 0.64) inset,
+    5px 5px 5px 0px rgba(13, 39, 80, 0.15) inset;
+}

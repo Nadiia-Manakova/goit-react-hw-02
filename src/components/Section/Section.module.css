@@ -1,0 +1,21 @@
+.section {
+  padding-top: 50px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.sectionWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  background: linear-gradient(167deg, #5463cb 34.27%, #4d40ac 56.59%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  font-size: 24px;
+}
