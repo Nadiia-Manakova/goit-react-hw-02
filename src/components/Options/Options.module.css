@@ -2,7 +2,8 @@
   display: flex;
   gap: 30px;
 }
-.btn {
+.btn,
+.reset {
   background-color: #e8eaec;
   border: none;
   box-shadow: 5px 5px 15px 0px rgba(13, 39, 80, 0.16), -5px -5px 15px 0px #fff;
@@ -17,7 +18,7 @@
     5px 5px 5px 0px rgba(13, 39, 80, 0.15) inset;
 }
 
-li:last-child > .btn:hover {
+.reset:hover {
   background: linear-gradient(167deg, rgb(201, 87, 106) 34.27%, #dd6480 56.59%);
   color: white;
   box-shadow: -5px -5px 15px 0px rgba(167, 46, 66, 0.64) inset,

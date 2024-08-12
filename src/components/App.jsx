@@ -1,71 +1,77 @@
-import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions.jsx';
-import {Description} from './Description/Description.jsx'
-import { Section } from './Section/Section.jsx';
-import { Statistics } from './Statistics/Statistics.jsx';
+import { useState, useEffect } from 'react';
+import { Description } from './Description/Description';
+import { Section } from './Section/Section';
+import { Statistic } from './Statistic/Statistic';
+import { Options } from './Options/Options';
+import './App.css';
 
-import { Component } from 'react';
+export const App = () => {
+  const options = ['good', 'neutral', 'bad'];
+  const [values, setValues] = useState(() => {
+    const savedValues = localStorage.getItem('saved-option');
+    return savedValues
+      ? JSON.parse(savedValues)
+      : { good: 0, neutral: 0, bad: 0 };
+  });
 
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+  // useEffect(() => {
+  //   const savedOption = JSON.parse(localStorage.getItem('saved-option'));
+  //   if (savedOption) {
+  //     setValues(savedOption);
+  //   }
+  // }, []);
 
-  handleFeedback = option => {
-    this.setState(prevState => ({
-      [option]: prevState[option] + 1,
+  useEffect(() => {
+    localStorage.setItem('saved-option', JSON.stringify(values));
+  }, [values]);
+
+  const onLeaveFeedback = option => {
+    setValues(prevValues => ({
+      ...prevValues,
+      [option]: prevValues[option] + 1,
     }));
   };
 
-  handleReset = option => {
-    const total = this.countTotalFeedback();
-   
-  }
-
-  countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    const sum = good + neutral + bad;
-    return sum;
+  const resetFeedback = () => {
+    setValues({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
   };
 
-  countPositiveFeedbackPercentage = () => {
-    const { good } = this.state;
-    const total = this.countTotalFeedback();
-    return total ? Math.round((good / total) * 100) : 0;
-  };
+  const total = values.good + values.neutral + values.bad;
+  const positivePercentage = total
+    ? Math.round((values.good / total) * 100)
+    : 0;
 
-  render() {
-    const { good, neutral, bad, reset } = this.state;
+  return (
+    <>
+      <Description title="Sip Happens Café">
+        <p>
+          Please leave your feedback about our service by selecting one of the
+          options below.
+        </p>
+      </Description>
+      <Section title="Please leave feedback">
+        <Options
+          options={options}
+          onLeaveFeedback={onLeaveFeedback}
+          showReset={total > 0}
+          resetFeedback={resetFeedback}
+        />
+      </Section>
+      <Section title="Statistics">
+        <Statistic
+          good={values.good}
+          neutral={values.neutral}
+          bad={values.bad}
+          total={total}
+          positivePercentage={positivePercentage}
+        />
+      </Section>
+    </>
+  );
+};
 
-    const total = this.countTotalFeedback();
-    const positivePercentage = this.countPositiveFeedbackPercentage();
-
-    const options = ['good', 'neutral', 'bad', 'reset'];
-
-    return (
-      <div>
-        <Description title="Sip Happens Café">
-          <p > Please leave your feedback about our service by selecting one of the options below. </p>
-        </Description>
-
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={options}
-            onLeaveFeedback={this.handleFeedback}
-          />
-        </Section>
-
-        <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={positivePercentage}
-          />
-        </Section>
-      </div>
-    );
-  }
-}
+export default App;
