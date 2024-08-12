@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Description } from './Description/Description';
 import { Section } from './Section/Section';
-import { Statistic } from './Statistic/Statistic';
+import { Feedback } from './Feedback/Feedback';
 import { Options } from './Options/Options';
+import { Notification } from './Notification/Notification';
 import './App.css';
 
 export const App = () => {
@@ -62,13 +63,17 @@ export const App = () => {
         />
       </Section>
       <Section title="Statistics">
-        <Statistic
-          good={values.good}
-          neutral={values.neutral}
-          bad={values.bad}
-          total={total}
-          positivePercentage={positivePercentage}
-        />
+        {total > 0 ? (
+          <Feedback
+            good={values.good}
+            neutral={values.neutral}
+            bad={values.bad}
+            total={total}
+            positivePercentage={positivePercentage}
+          />
+        ) : (
+          <Notification />
+        )}
       </Section>
     </>
   );

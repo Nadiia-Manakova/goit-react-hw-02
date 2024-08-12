@@ -1,15 +1,6 @@
-import css from './Statistic.module.css';
+import css from './Feedback.module.css';
 
-export const Statistic = ({
-  good,
-  neutral,
-  bad,
-  total,
-  positivePercentage,
-}) => {
-  if (total === 0) {
-    return <p>No feedback given</p>;
-  }
+export const Feedback = ({ good, neutral, bad, total, positivePercentage }) => {
   return (
     <div className={css.cardbody}>
       <ul className={css.statisticsList}>
